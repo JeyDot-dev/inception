@@ -9,6 +9,8 @@ services:
       - 443:443
 
     restart:          always
+    volumes:
+      - wordpress-volume:/www
     networks:
       - container_network
 
@@ -16,9 +18,13 @@ services:
     container_name:   wordpress
     build:            requirements/wordpress
     restart:          always
+    volumes:
+      - wordpress-volume:/www
     networks:
       - container_network
 
-
+volumes:
+  wordpress-volume:
+  mariadb-volume:
 networks:
   container_network:

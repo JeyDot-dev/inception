@@ -17,7 +17,7 @@ RUN apk update                          \
        -days 500 -nodes -subj           \
        "/C=CH/ST=Vaud/L=Lausanne/O=42Lausanne/OU=42Lausanne/CN=jsousa-a"
 
-COPY conf/html /www
 COPY conf/nginx.conf /etc/nginx/nginx.conf
+#COPY conf/html /www
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -7,6 +7,7 @@ down:
 clean: 
 	docker compose -f srcs/docker-compose.yaml down
 	docker rmi $$(docker images -q "inception*")
+	docker volume rm inception_wordpress-volume inception_mariadb-volume
 
 re: clean
 	docker compose -f srcs/docker-compose.yaml up -d --build
