@@ -12,5 +12,13 @@ services:
     networks:
       - container_network
 
+  wordpress:
+    container_name:   wordpress
+    build:            requirements/wordpress
+    restart:          always
+    networks:
+      - container_network
+
+
 networks:
   container_network:
