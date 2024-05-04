@@ -13,8 +13,8 @@ RUN apk update                          \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
     && wp cli update && wp core download --path=www --allow-root \
-    && sed -i "s/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/" /etc/php82/php-fpm.d/www.conf
-    #&& cp www/wp-config-sample.php www/wp-config.php && wp core install --path=www
+    && sed -i "s/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/" /etc/php82/php-fpm.d/www.conf 
+#    && cp www/wp-config-sample.php www/wp-config.php && wp core install --path=www
 
 #COPY ./config/www.conf /etc/php82/php-fpm.d/
 EXPOSE 9000
