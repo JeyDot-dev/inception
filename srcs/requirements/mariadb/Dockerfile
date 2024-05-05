@@ -2,14 +2,11 @@
 
 FROM    alpine:3.19.1
 
+COPY    ./script/setup_db.sh /scripts/
 RUN apk update                          \
     && apk add --no-cache bash vim mysql mysql-client \
-    && mkdir -p /var/lib/mysql /run/mysqld \
-    && mariadb-install-db --user=mysql --datadir=/var/lib/mysql \
-    && chown -R mysql:mysql /run/mysqld /var/lib/mysql \
-    && mysql_secure_installation --use-default
+    && chmod +x /scripts/setup_db.sh
+EXPOSE  3306
 
-USER    mysql
-EXPOSE 3306
-
-CMD [ "/usr/bin/mariadb-safe", "--datadir='/var/lib/mysql'" ]
+ENTRYPOINT [ "/scripts/setup_db.sh" ]
+CMD [ "/usr/bin/mariadbd-safe", "--datadir=/var/lib/mysql" ]
