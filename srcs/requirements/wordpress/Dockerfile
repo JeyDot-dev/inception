@@ -4,8 +4,8 @@ FROM    alpine:3.19.1
 
 RUN apk update                          \
     && apk --no-cache add bash curl wget tar php82 php82-fpm php82-phar php82-mysqli php82-curl    \
-    && addgroup -g 1050 www           \
-    && adduser -S phpfpm -G www \
+    && addgroup -S phpfpm && adduser -S phpfpm -G phpfpm \
+    && mkdir www && chown phpfpm:phpfpm www \
     && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod a+x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
@@ -18,6 +18,10 @@ RUN apk update                          \
 #    && cp www/wp-config-sample.php www/wp-config.php
 #    && wp core install --path=www
 
+USER    phpfpm
+
+RUN     wp core download --path=www && \
+        cp www/wp-config-sample.php www/wp-config.php
 
 COPY ./config/www.conf /etc/php82/php-fpm.d/
 EXPOSE 9000

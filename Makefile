@@ -1,9 +1,6 @@
-DIR_HOME	:= /home/${USER}/data
-DB			:= ${DIR_HOME}/db-volume
-WP			:= ${DIR_HOME}/wordpress-volume
-all: setup
-	mkdir -p ${DB} ${WP}
-	chown :www-group ${DB} ${WP}
+all:
+	mkdir -p /home/${USER}/data/wordpress-volume
+	mkdir -p /home/${USER}/data/db-volume
 	docker compose -f srcs/docker-compose.yaml up -d
 	echo "cmd to show logs: docker compose -f srcs/docker-compose.yaml logs -f"
 up: all
@@ -13,12 +10,10 @@ clean:
 	-docker compose -f srcs/docker-compose.yaml down
 	-docker rmi --force $$(docker images -q "inception*")
 	-docker volume rm inception_wordpress-volume inception_db-volume --force
-	-rm -f /home/${USER}/data/*
+	-rm -f /home/${USER}/data/*/*
 
-setup:
-	./srcs/setup.sh ""
 re: clean
 	docker compose -f srcs/docker-compose.yaml up -d --build
 	
 
-.PHONY: all re down up clean setup
+.PHONY: all re down up clean

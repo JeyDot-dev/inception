@@ -8,8 +8,7 @@ RUN apk update                          \
                                         \
     && mkdir /www                       \
     && mkdir /ssl                       \
-    && addgroup -g 1050                 \
-    && adduser -D -g 'www' www-group          \
+    && adduser -D -g 'www' www          \
     && chown -R www:www /var/lib/nginx  www \
     && openssl req -newkey rsa:4096     \
        -x509 -keyout /ssl/jsousa-a.key  \
