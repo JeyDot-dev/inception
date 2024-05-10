@@ -2,9 +2,9 @@
 
 set -x
 
-groupmod -g 1050 mysql
-mkdir -p /run/mysqld
-chown -R mysql:mysql /run/mysqld
+
+mkdir -p /var/lib/mysql /run/mysqld
+chown -R mysql:mysql /var/lib/mysql /run/mysqld
 
 if [ ! -e "/var/lib/mysql/wordpress" ]
 then

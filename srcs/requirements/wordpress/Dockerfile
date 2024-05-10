@@ -20,9 +20,7 @@ RUN apk update                          \
 
 
 COPY ./config/www.conf /etc/php82/php-fpm.d/
-COPY ./script/install_wp.sh /script/install_wp.sh
+EXPOSE 9000
 
-RUN chmod +x /script/install_wp.sh
-
-ENTRYPOINT [ "/script/install_wp.sh" ]
+USER    root
 CMD ["/usr/sbin/php-fpm82", "-F"]
