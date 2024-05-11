@@ -1,5 +1,6 @@
 name: inception
 services:
+#---------------------------------------
   nginx:
     container_name:   nginx
     build:            requirements/nginx
@@ -14,7 +15,7 @@ services:
       - wordpress-volume:/www
     networks:
       - wp-nginx_network
-
+#---------------------------------------
   wordpress:
     container_name:   wordpress
     build:            requirements/wordpress
@@ -27,7 +28,13 @@ services:
     networks:
       - wp-nginx_network
       - db_network
-
+    secrets:
+      - db_user
+      - db_password
+      - db_name
+      - wp_admin_password
+      - wp_admin_username
+#---------------------------------------
   mariadb:
     container_name:   mariadb
     build:            requirements/mariadb
@@ -37,7 +44,11 @@ services:
       - db-volume:/var/lib/mysql
     networks:
       - db_network
-
+    secrets:
+      - db_user
+      - db_password
+      - db_name
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 volumes:
   wordpress-volume:
     driver_opts:
@@ -53,8 +64,13 @@ volumes:
 networks:
   wp-nginx_network:
   db_network:
+
 secrets:
   db_user:
     file: ../secrets/db_user.txt
   db_password:
     file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  db_name:
+    file: ../secrets/db_name.txt

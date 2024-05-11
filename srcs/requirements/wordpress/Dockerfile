@@ -17,13 +17,19 @@ RUN apk update                          \
 #    && cp www/wp-config-sample.php www/wp-config.php
 #    && wp core install --path=www
 
-USER    phpfpm
 
+USER    phpfpm
 RUN     wp core download --path=www && \
         cp www/wp-config-sample.php www/wp-config.php
+USER    root
 
 COPY ./config/www.conf /etc/php82/php-fpm.d/
+COPY ./script/set_wp.sh /script/set_wp.sh
+
+RUN     chmod +x /script/set_wp.sh
+
 EXPOSE 9000
 
-USER    root
+
+ENTRYPOINT ["script/set_wp.sh"]
 CMD ["/usr/sbin/php-fpm82", "-F"]

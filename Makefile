@@ -10,7 +10,7 @@ clean:
 	-docker compose -f srcs/docker-compose.yaml down
 	-docker rmi --force $$(docker images -q "inception*")
 	-docker volume rm inception_wordpress-volume inception_db-volume --force
-	-rm -f /home/${USER}/data/*/*
+	-rm -f /home/${USER}/data/*
 
 re: clean
 	docker compose -f srcs/docker-compose.yaml up -d --build
