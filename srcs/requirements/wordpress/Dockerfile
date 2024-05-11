@@ -8,8 +8,7 @@ RUN apk update                          \
     && mkdir www && chown phpfpm:phpfpm www \
     && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod a+x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp \
-    && wp cli update
+    && mv wp-cli.phar /usr/local/bin/wp
    # && wget "http://wordpress.org/latest.tar.gz" \
   #  && tar -xzvf latest.tar.gz    \
  #   && mv wordpress/* www/      \

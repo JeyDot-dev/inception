@@ -8,5 +8,6 @@ RUN apk update                          \
     && chmod +x /scripts/setup_db.sh
 EXPOSE  3306
 
+STOPSIGNAL SIGTERM
 ENTRYPOINT [ "/scripts/setup_db.sh" ]
-CMD [ "/usr/bin/mariadbd-safe", "--datadir=/var/lib/mysql" ]
+CMD [ "/usr/bin/mariadbd-safe", "--datadir=/var/lib/mysql", "--user=mysql", "--bind-address=0.0.0.0" ]

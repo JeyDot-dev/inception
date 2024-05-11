@@ -3,10 +3,12 @@ services:
   nginx:
     container_name:   nginx
     build:            requirements/nginx
+    restart:          always
+    depends_on:
+                    - wordpress
     ports:
       - 80:80
       - 443:443
-    restart:          always
 
     volumes:
       - wordpress-volume:/www
@@ -17,6 +19,8 @@ services:
     container_name:   wordpress
     build:            requirements/wordpress
     restart:          always
+    depends_on:
+                    - mariadb
 
     volumes:
       - wordpress-volume:/www
@@ -45,6 +49,12 @@ volumes:
       type: none
       o:    bind
       device: /home/${USER}/data/db-volume
+
 networks:
   wp-nginx_network:
   db_network:
+secrets:
+  db_user:
+    file: ../secrets/db_user.txt
+  db_password:
+    file: ../secrets/db_password.txt
