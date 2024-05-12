@@ -1,6 +1,6 @@
 #MARIADB
 
-FROM    alpine:3.19.1
+FROM    alpine:3.18
 
 COPY    ./script/setup_db.sh /scripts/
 COPY    ./conf/mariadb-server.cnf /etc/my.cnf.d/

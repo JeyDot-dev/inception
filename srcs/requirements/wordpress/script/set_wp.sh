@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+php -v
 if  wp core is-installed --path=/www ;then
     echo "wordpress already configured"
 else
